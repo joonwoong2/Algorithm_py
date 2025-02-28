@@ -1,0 +1,32 @@
+## 풀이
+
+# - 입력 : 가게 수 만큼 받는데 6개 묶음 중 최소 가격, 낱개 중 최소 가격을 먼저 구분한다.
+# - minimum 함수 : 최대 낱개부터 최소 낱개까지 계산 후 최솟값 리턴
+
+def minimum(kangto, market):
+    sum = []
+    for i in range(0, kangto[0]+1):
+        if (kangto[0]+1 - i) == 0:
+            sum.append(kangto[0]*market[1])
+        else:
+            if (kangto[0]-i)%6 == 0:
+                sum.append(market[1]*i + int((kangto[0]-i)/6)*market[0])
+            else:
+                sum.append(market[1]*i + (int((kangto[0]-i)/6) + 1)*market[0])
+
+    return (min(sum))
+
+kangto = list(map(int, input().split()))
+
+p_6 = []
+p_1 = []
+for i in range(0,kangto[1]):
+    markets = list(map(int, input().split()))
+    p_6.append(markets[0])
+    p_1.append(markets[1])
+
+market = []
+market.append(min(p_6))
+market.append(min(p_1))
+
+print(minimum(kangto, market))
